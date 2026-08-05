@@ -16,8 +16,8 @@
 | R8 | 地面站與雲端 | `docs/50-gcs-and-cloud/` | ✅ |
 | R9 | 模擬與測試 | `docs/60-simulation-and-testing/` | ✅ |
 | R10 | AI 協作開發 | `docs/70-ai-assisted-development/` | ✅ |
-| R11 | 手繪 SVG | `img/` | ✅ |
-| R12 | 參考實作骨架 | `reference-impl/` | ✅ |
+| R11 | 手繪 SVG | `img/` 三張:延遲預算、座標系對照、三層任務控制 | ✅ |
+| R12 | 參考實作骨架 | `reference-impl/`,已在 PX4 SITL v1.17 上驗過 | ✅ |
 
 ## 每輪收尾流程
 
@@ -35,6 +35,9 @@
 | Isaac Sim 6.0 GA 的正式釋出日期 | 待查證 |
 | 台灣民航局遙控無人機法規的現行條文與 Remote ID 要求 | 待查證,目前文件只寫國際通則 |
 | reference-impl 在實體 Pixhawk 上的 HITL 驗證 | 未做,目前只驗過 SITL |
+| 情境檔的 `metrics` 斷言(需解析 ULog) | 未實作,格式已在 docs/60 定義 |
+| 情境檔的 `inject` 故障注入 | 未實作,假飛控後端已有排程中斷的機制可接 |
+| MAVSDK 的雲台與相機介面 | 未接,各版本簽章有變動,要對照實際版本才寫 |
 
 ## 後續可擴充
 

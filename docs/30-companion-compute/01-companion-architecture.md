@@ -131,6 +131,11 @@ FRD → FLU:  (x, y, z)_FLU = ( x_FRD, -y_FRD, -z_FRD )
 偏航角:      yaw_ENU = π/2 − yaw_NED
 ```
 
+<p align="center">
+  <img src="../../img/coordinate-frames.svg" width="880"
+       alt="PX4 的 NED/FRD 與 ROS 2 的 ENU/FLU 座標系對照,含轉換公式與 uXRCE-DDS 不轉換的提醒">
+</p>
+
 注意 NED → ENU **不是單純的軸反轉,是交換 x 與 y 再把 z 取負**。這個轉換不是旋轉矩陣可以直接套的形式(它包含一次鏡射的組合),自己手寫很容易寫錯。
 
 **最重要的實務差異**:透過 uXRCE-DDS 拿到的 PX4 主題**維持 PX4 自己的慣例**(NED / FRD),不會自動轉成 ROS 2 慣例。MAVROS 則會做轉換。所以同一個團隊如果一部分程式用 uXRCE-DDS、一部分用 MAVROS,兩邊拿到的座標慣例是不同的——這是非常隱蔽的 bug 來源。

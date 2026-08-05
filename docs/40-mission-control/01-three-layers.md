@@ -32,6 +32,11 @@
 
 ---
 
+<p align="center">
+  <img src="../../img/mission-control-layers.svg" width="900"
+       alt="三層任務控制的責任範圍與各自失效時的系統行為,以及層間的介面契約">
+</p>
+
 ## 2. 各層的責任與不負責
 
 ### Navigator:飛控內建的任務執行

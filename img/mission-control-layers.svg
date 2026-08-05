@@ -1,0 +1,82 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="700" viewBox="0 0 1000 700"
+     font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <defs>
+    <marker id="d" markerWidth="10" markerHeight="10" refX="8" refY="3.5" orient="auto">
+      <path d="M0,0 L8,3.5 L0,7 z" fill="#555"/>
+    </marker>
+  </defs>
+  <rect width="1000" height="700" fill="#ffffff"/>
+
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a1a">
+    任務控制的三層:同一個詞,三種東西
+  </text>
+  <text x="340" y="72" text-anchor="middle" font-size="13.5" font-weight="600" fill="#555">各層負責什麼、不負責什麼</text>
+  <text x="820" y="72" text-anchor="middle" font-size="13.5" font-weight="600" fill="#555">它不見了會怎樣</text>
+
+  <!-- 雲端 -->
+  <rect x="60" y="90" width="560" height="112" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="1.5"/>
+  <text x="80" y="116" font-size="15.5" font-weight="700" fill="#4A148C">雲端任務服務</text>
+  <text x="238" y="116" font-size="12.5" fill="#7B1FA2">地面或雲端 · 分鐘到天</text>
+  <text x="80" y="142" font-size="13" fill="#4A148C">任務資料模型與版本 · 排程派工 · 多機協調 · 稽核與合規</text>
+  <text x="80" y="166" font-size="13" fill="#4A148C">跟工單、ERP、UTM 的整合;成果資料的收納</text>
+  <text x="80" y="190" font-size="12.5" font-weight="600" fill="#B71C1C">不進即時迴路,也不能假設鏈路常在</text>
+
+  <rect x="660" y="90" width="300" height="112" rx="10" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1.5"/>
+  <text x="680" y="118" font-size="13" font-weight="700" fill="#2E7D32">飛機完全不受影響</text>
+  <text x="680" y="142" font-size="12.5" fill="#444">已下發的任務照常執行</text>
+  <text x="680" y="164" font-size="12.5" fill="#444">進度事件先緩衝在機上</text>
+  <text x="680" y="186" font-size="12.5" fill="#444">連線恢復後依序號補送</text>
+
+  <!-- 雲端 ↔ 機載 -->
+  <line x1="200" y1="202" x2="200" y2="286" stroke="#555" stroke-width="1.8" marker-end="url(#d)"/>
+  <text x="212" y="232" font-size="12.5" fill="#333">派工:意圖 + 版本</text>
+  <text x="212" y="250" font-size="12" fill="#777">同 ID 同版本重送不生效</text>
+  <line x1="500" y1="286" x2="500" y2="202" stroke="#555" stroke-width="1.8" marker-end="url(#d)"/>
+  <text x="512" y="232" font-size="12.5" fill="#333">進度事件:帶序號</text>
+  <text x="512" y="250" font-size="12" fill="#777">可離線緩衝,允許亂序重複</text>
+
+  <!-- 機載執行器 -->
+  <rect x="60" y="286" width="560" height="112" rx="10" fill="#E1F5FE" stroke="#0277BD" stroke-width="1.5"/>
+  <text x="80" y="312" font-size="15.5" font-weight="700" fill="#01579B">機載任務執行器</text>
+  <text x="252" y="312" font-size="12.5" fill="#0277BD">伴隨電腦 · 秒到分鐘</text>
+  <text x="80" y="338" font-size="13" fill="#01579B">把業務任務拆成動作序列 · 驅動 Offboard · 整合感知結果</text>
+  <text x="80" y="362" font-size="13" fill="#01579B">控制酬載 · 記錄執行過程 · 處理中斷與恢復</text>
+  <text x="80" y="386" font-size="12.5" font-weight="600" fill="#B71C1C">不做姿態控制,也不是 failsafe 的最後一道防線</text>
+
+  <rect x="660" y="286" width="300" height="112" rx="10" fill="#FAFAFA" stroke="#9E9E9E" stroke-width="1.5"/>
+  <text x="680" y="314" font-size="13" font-weight="700" fill="#EF6C00">飛控接手,任務降級</text>
+  <text x="680" y="338" font-size="12.5" fill="#444">飛控偵測到 setpoint 中斷</text>
+  <text x="680" y="360" font-size="12.5" fill="#444">退出 Offboard,回安全模式</text>
+  <text x="680" y="382" font-size="12.5" fill="#444">照航點骨幹續飛或返航</text>
+
+  <!-- 機載 ↔ 飛控 -->
+  <line x1="200" y1="398" x2="200" y2="466" stroke="#555" stroke-width="1.8" marker-end="url(#d)"/>
+  <text x="212" y="424" font-size="12.5" fill="#333">航點骨幹 · 模式請求</text>
+  <text x="212" y="442" font-size="12" fill="#777">飛控有權拒絕,拒絕帶原因</text>
+  <line x1="500" y1="466" x2="500" y2="398" stroke="#555" stroke-width="1.8" marker-end="url(#d)"/>
+  <text x="512" y="424" font-size="12.5" fill="#333">狀態 · 到達通知</text>
+  <text x="512" y="442" font-size="12" fill="#777">failsafe 旗標 · 模式變更</text>
+
+  <!-- 飛控 -->
+  <rect x="60" y="466" width="560" height="112" rx="10" fill="#E8F5E9" stroke="#2E7D32" stroke-width="1.5"/>
+  <text x="80" y="492" font-size="15.5" font-weight="700" fill="#1B5E20">飛控內建 Navigator</text>
+  <text x="272" y="492" font-size="12.5" fill="#2E7D32">飛控韌體內 · 秒</text>
+  <text x="80" y="518" font-size="13" fill="#1B5E20">執行已上傳的航點序列 · 到達判定 · 起飛降落返航等內建行為</text>
+  <text x="80" y="542" font-size="13" fill="#1B5E20">geofence 判斷;failsafe 觸發時中止任務並接管</text>
+  <text x="80" y="566" font-size="12.5" font-weight="600" fill="#B71C1C">不懂業務語意:「巡檢第 3 根電線桿」對它沒有意義</text>
+
+  <rect x="660" y="466" width="300" height="112" rx="10" fill="#FFEBEE" stroke="#C62828" stroke-width="1.5"/>
+  <text x="680" y="494" font-size="13" font-weight="700" fill="#B71C1C">沒有軟體解</text>
+  <text x="680" y="518" font-size="12.5" fill="#B71C1C">這一層是所有退路的終點</text>
+  <text x="680" y="540" font-size="12.5" fill="#B71C1C">終點不能有退路</text>
+  <text x="680" y="562" font-size="12.5" fill="#B71C1C">只能靠雙 IMU、硬體冗餘</text>
+
+  <!-- 底部結論 -->
+  <rect x="60" y="606" width="900" height="72" rx="10" fill="#FFF8E1" stroke="#F9A825" stroke-width="1.5"/>
+  <text x="510" y="634" text-anchor="middle" font-size="14.5" font-weight="700" fill="#8D6E00">
+    飛行期間,任務狀態的權威在機上;雲端與地面站持有的是最終一致的副本
+  </text>
+  <text x="510" y="660" text-anchor="middle" font-size="13" fill="#8D6E00">
+    要改任務就下發新版本,不要去改狀態 —— 否則每次斷線重連都會產生無解的衝突
+  </text>
+</svg>
