@@ -23,6 +23,7 @@
 | R15 | Physical AI 模擬環境 | `docs/65-physical-ai-sim/` | ✅ |
 | R16 | 策略訓練骨架 | `reference-impl/policy-lab/`,9 項測試通過 | ✅ |
 | R17 | README 改版 | 系統架構圖與爆炸圖(兼作章節導覽) | ✅ |
+| R18 | 模擬素材 | `docs/65-physical-ai-sim/03-assets-and-worlds.md`,授權以 `gh api` 逐一查證 | ✅ |
 
 ## 每輪收尾流程
 
@@ -46,6 +47,9 @@
 | Isaac Lab 3.0 與 Newton 的整合進度 | Beta 階段,穩定後要回頭更新 65 章 |
 | Aerial Gym 對 Isaac Lab / Isaac Sim 的支援 | 官方標示開發中,完成後選型建議要改 |
 | `mc_nn_control` 各參數的精確語意與實際飛行驗證 | 只確認模組與參數存在,未實跑 |
+| RotorS 與 AWS RoboMaker worlds 的實際授權 | repo 根目錄查無授權檔(2026-08-05);未向作者確認,文件已標為風險 |
+| Cesium for Omniverse 在無人機高度的細節不足 | 引自社群回報,本機未實測 |
+| Isaac Sim 內建資產(Crazyflie / Quadcopter USD)的路徑 | 引自官方文件,未在本機安裝驗證 |
 
 ## 後續可擴充
 

@@ -39,6 +39,7 @@
 | 要看懂飛控在做什麼,或想改飛控 | [10 飛控軟體](docs/10-flight-controller/) → [20 通訊協定](docs/20-protocols/) |
 | 要建一套能自動跑的驗證環境 | [60 模擬與測試](docs/60-simulation-and-testing/) → [reference-impl](reference-impl/) |
 | 要用強化學習訓練飛行策略,建 Physical AI 環境 | [60 模擬與測試](docs/60-simulation-and-testing/) → [65 Physical AI 模擬環境](docs/65-physical-ai-sim/) |
+| 手上有 CAD 或想找現成的機體模型、地形素材丟進 Isaac Sim | [65-03 素材:模型與世界](docs/65-physical-ai-sim/03-assets-and-worlds.md) → [15 機體參數](docs/15-airframes-and-envelope/) |
 | 想知道 AI 工具在這個領域能幫到哪、不能碰哪 | [70 AI 協作開發](docs/70-ai-assisted-development/) |
 
 完全沒接觸過的話,照 00 → 05 → 10 → 15 → 20 → 30 → 40 → 50 → 60 → 65 → 70 的順序走一遍最省力。前面兩章建立邊界感,中間幾章把資料流打通,後面才是產品化與工程化。
@@ -58,7 +59,7 @@
 | [40](docs/40-mission-control/) | 任務控制 | 「任務控制」的三層各在哪、責任怎麼切、中斷了怎麼恢復? |
 | [50](docs/50-gcs-and-cloud/) | 地面站與雲端 | GCS 要不要自研?機隊資料模型與合規怎麼設計? |
 | [60](docs/60-simulation-and-testing/) | 模擬與測試 | 怎麼用 Gazebo / Isaac Sim 建一套能擋住回歸的驗證系統? |
-| [65](docs/65-physical-ai-sim/) | Physical AI 模擬環境 | 要訓練飛行策略,模擬環境該怎麼建?學出來的策略能放在哪一層? |
+| [65](docs/65-physical-ai-sim/) | Physical AI 模擬環境 | 要訓練飛行策略,模擬環境該怎麼建?學出來的策略能放在哪一層?機體模型與世界素材去哪裡找? |
 | [70](docs/70-ai-assisted-development/) | AI 協作開發 | 哪些工作可以交給 AI 工具、哪些絕對不行、驗收怎麼設? |
 
 輔助文件:[CONTEXT.md](CONTEXT.md) 是術語表與版本現況(含查證日期),[PLAN.md](PLAN.md) 是進度與待查證清單,[CLAUDE.md](CLAUDE.md) 是這個 repo 的寫作與驗收規則。
