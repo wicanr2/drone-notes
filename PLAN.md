@@ -22,6 +22,7 @@
 | R14 | 軍用平台與照片 | `docs/15-.../03-military-classification.md`、`img/photos/` | ✅ |
 | R15 | Physical AI 模擬環境 | `docs/65-physical-ai-sim/` | ✅ |
 | R16 | 策略訓練骨架 | `reference-impl/policy-lab/`,9 項測試通過 | ✅ |
+| R17 | README 改版 | 系統架構圖與爆炸圖(兼作章節導覽) | ✅ |
 
 ## 每輪收尾流程
 

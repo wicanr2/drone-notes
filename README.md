@@ -4,7 +4,27 @@
 
 寫過後端的人其實有八成技能可以直接搬過來:狀態機、冪等、重試與退避、事件溯源、契約測試、CI。真正要補的是另外兩成:**哪些事情不能進即時迴路、為什麼協定長成這樣、失效的時候預設要往哪裡退。** 這份專論寫的就是那兩成。
 
-每一章都從「這裡要解決什麼根本問題」開始推,而不是先列名詞再解釋。看到一個奇怪的設計(8-bit 的系統編號、z 軸朝下的座標系、切模式前要先送一陣子指令),先問它當初擋住了什麼,再談要不要換掉。
+每一章都從「這裡要解決什麼根本問題」開始推。看到一個奇怪的設計(8-bit 的系統編號、z 軸朝下的座標系、切模式前要先送一陣子指令),先問它當初擋住了什麼,再談要不要換掉。
+
+---
+
+## 先看這兩張圖
+
+整套系統的樣子,以及每一塊由哪一章負責:
+
+<p align="center">
+  <img src="img/system-architecture.svg" width="900"
+       alt="無人機系統的五層架構:雲端、地面站、通訊鏈路、機上(伴隨電腦與飛控)、硬體,標註各層的時間尺度、斷線行為與對應章節">
+</p>
+
+機上那台機器拆開來長這樣:
+
+<p align="center">
+  <img src="img/drone-exploded.svg" width="900"
+       alt="工作用多旋翼的爆炸圖:天線層、伴隨電腦、飛控板、動力層、電池、雲台與酬載,各層標註對應章節">
+</p>
+
+---
 
 ## 從哪裡開始讀
 
@@ -21,7 +41,9 @@
 | 要用強化學習訓練飛行策略,建 Physical AI 環境 | [60 模擬與測試](docs/60-simulation-and-testing/) → [65 Physical AI 模擬環境](docs/65-physical-ai-sim/) |
 | 想知道 AI 工具在這個領域能幫到哪、不能碰哪 | [70 AI 協作開發](docs/70-ai-assisted-development/) |
 
-完全沒接觸過的話,照 00 → 05 → 10 → 15 → 20 → 30 → 40 → 50 → 60 → 65 → 70 的順序走一遍最省力。前面兩章建立邊界感,中間三章把資料流打通,後面四章才是產品化與工程化。
+完全沒接觸過的話,照 00 → 05 → 10 → 15 → 20 → 30 → 40 → 50 → 60 → 65 → 70 的順序走一遍最省力。前面兩章建立邊界感,中間幾章把資料流打通,後面才是產品化與工程化。
+
+---
 
 ## 章節
 
@@ -41,9 +63,13 @@
 
 輔助文件:[CONTEXT.md](CONTEXT.md) 是術語表與版本現況(含查證日期),[PLAN.md](PLAN.md) 是進度與待查證清單,[CLAUDE.md](CLAUDE.md) 是這個 repo 的寫作與驗收規則。
 
+---
+
 ## 可跑的參考實作
 
-[`reference-impl/`](reference-impl/) 裡是一套最小但真的能跑的骨架:一個帶 REST API 的任務服務、一個機載任務執行器、可注入中斷的假飛控,以及宣告式的情境測試。同一套邏輯可以接假飛控(秒級、不需要 PX4)或真的 PX4 SITL。
+[`reference-impl/`](reference-impl/) 底下有兩套骨架,都是真的能跑、有測試的:
+
+**[`mission-controller/`](reference-impl/mission-controller/)** — 三層任務控制。一個帶 REST API 的任務服務、一個機載任務執行器、可注入中斷的假飛控,以及宣告式的情境測試。同一套邏輯可以接假飛控(秒級、不需要 PX4)或真的 PX4 SITL。
 
 ```bash
 cd reference-impl
@@ -54,7 +80,13 @@ docker compose exec mission-controller \
 MC_VEHICLE=mavsdk docker compose --profile sitl up -d    # 換成真的 PX4 SITL
 ```
 
-單元測試 20 項、兩個情境在假飛控後端、一個情境在真 PX4 SITL v1.17 + Gazebo 上都跑過。哪些驗過、哪些沒有,[那裡的 README](reference-impl/README.md#驗證狀態) 有逐項說明。
+**[`policy-lab/`](reference-impl/policy-lab/)** — 飛行策略訓練骨架。訓練環境與驗收環境分離、安全外殼(無效觀測 → 安全預設、OOD → 退回傳統控制器、輸出限幅)、用指標而不是 reward 驗收。純 numpy、單執行緒、五秒跑完。
+
+實測結果值得一看:**學出來的策略在 reward 最在意的位置誤差上贏過退路控制器,但它 100% 墜毀。** 只有指標閘門抓得到。
+
+單元測試 29 項、兩個情境在假飛控、一個情境在真 PX4 SITL v1.17 + Gazebo 上都跑過。哪些驗過、哪些沒有,各自的 README 有逐項說明。
+
+---
 
 ## 這份文件不涵蓋什麼
 
@@ -64,4 +96,4 @@ MC_VEHICLE=mavsdk docker compose --profile sitl up -d    # 換成真的 PX4 SITL
 
 ## 授權
 
-MIT。文件與程式碼都可自由引用與改寫,保留著作權聲明即可。
+文字與程式碼是 MIT。[`img/photos/`](img/photos/) 底下的照片取自 Wikimedia Commons 的自由授權素材(公有領域 / CC0 / CC BY / CC BY-SA),各自沿用原授權,逐張的作者與授權列在 [`img/photos/CREDITS.md`](img/photos/CREDITS.md)。
