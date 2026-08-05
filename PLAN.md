@@ -18,6 +18,7 @@
 | R10 | AI 協作開發 | `docs/70-ai-assisted-development/` | ✅ |
 | R11 | 手繪 SVG | `img/` 三張:延遲預算、座標系對照、三層任務控制 | ✅ |
 | R12 | 參考實作骨架 | `reference-impl/`,已在 PX4 SITL v1.17 上驗過 | ✅ |
+| R13 | 機體參數與飛行包絡 | `docs/15-airframes-and-envelope/` | ✅ |
 
 ## 每輪收尾流程
 

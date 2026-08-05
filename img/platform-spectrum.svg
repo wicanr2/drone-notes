@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600"
+     font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="600" fill="#ffffff"/>
+
+  <text x="500" y="36" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a1a">
+    平台光譜:起飛重量與續航的量級關係
+  </text>
+  <text x="500" y="60" text-anchor="middle" font-size="12.5" fill="#666">
+    廠商公開規格,最佳條件值(多為無風、無酬載);查證日期 2026-08-05
+  </text>
+
+  <!-- 圖例 -->
+  <g font-size="12.5">
+    <circle cx="132" cy="88" r="6" fill="#2E7D32"/><text x="146" y="93" fill="#1B5E20">多旋翼</text>
+    <circle cx="242" cy="88" r="6" fill="#0277BD"/><text x="256" y="93" fill="#01579B">固定翼 VTOL</text>
+    <circle cx="392" cy="88" r="6" fill="#EF6C00"/><text x="406" y="93" fill="#E65100">大載重多旋翼</text>
+  </g>
+
+  <!-- 座標軸 -->
+  <line x1="110" y1="480" x2="890" y2="480" stroke="#333" stroke-width="2"/>
+  <line x1="110" y1="120" x2="110" y2="480" stroke="#333" stroke-width="2"/>
+
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <line x1="144" y1="480" x2="144" y2="487" stroke="#333"/><text x="144" y="503">0.03</text>
+    <line x1="243" y1="480" x2="243" y2="487" stroke="#333"/><text x="243" y="503">0.1</text>
+    <line x1="433" y1="480" x2="433" y2="487" stroke="#333"/><text x="433" y="503">1</text>
+    <line x1="623" y1="480" x2="623" y2="487" stroke="#333"/><text x="623" y="503">10</text>
+    <line x1="813" y1="480" x2="813" y2="487" stroke="#333"/><text x="813" y="503">100</text>
+    <text x="500" y="527" font-size="13" fill="#444">起飛重量 kg(對數尺度)</text>
+  </g>
+
+  <g font-size="12" fill="#555" text-anchor="end">
+    <line x1="103" y1="480" x2="110" y2="480" stroke="#333"/><text x="98" y="485">0</text>
+    <line x1="103" y1="408" x2="110" y2="408" stroke="#333"/><text x="98" y="413">20</text>
+    <line x1="103" y1="337" x2="110" y2="337" stroke="#333"/><text x="98" y="342">40</text>
+    <line x1="103" y1="265" x2="110" y2="265" stroke="#333"/><text x="98" y="270">60</text>
+    <line x1="103" y1="194" x2="110" y2="194" stroke="#333"/><text x="98" y="199">80</text>
+  </g>
+  <text x="46" y="300" font-size="13" fill="#444" transform="rotate(-90 46 300)" text-anchor="middle">續航(分鐘)</text>
+
+  <!-- 淡格線 -->
+  <g stroke="#EEE" stroke-width="1">
+    <line x1="110" y1="408" x2="890" y2="408"/>
+    <line x1="110" y1="337" x2="890" y2="337"/>
+    <line x1="110" y1="265" x2="890" y2="265"/>
+    <line x1="110" y1="194" x2="890" y2="194"/>
+  </g>
+
+  <!-- 資料點 -->
+  <g>
+    <circle cx="141" cy="455" r="7" fill="#2E7D32"/>
+    <text x="153" y="450" font-size="12.5" fill="#1B5E20">Crazyflie 2.1</text>
+    <text x="153" y="466" font-size="11" fill="#888">29 g · 7 分</text>
+
+    <circle cx="318" cy="358" r="7" fill="#2E7D32"/>
+    <text x="330" y="353" font-size="12.5" fill="#1B5E20">DJI Mini 4 Pro</text>
+    <text x="330" y="369" font-size="11" fill="#888">249 g · 34 分</text>
+
+    <circle cx="508" cy="337" r="7" fill="#2E7D32"/>
+    <text x="500" y="332" font-size="12.5" fill="#1B5E20" text-anchor="end">Skydio X10</text>
+    <text x="500" y="348" font-size="11" fill="#888" text-anchor="end">2.49 kg · 40 分</text>
+
+    <circle cx="562" cy="269" r="7" fill="#0277BD"/>
+    <text x="554" y="257" font-size="12.5" fill="#01579B" text-anchor="end">WingtraOne GEN II</text>
+    <text x="554" y="273" font-size="11" fill="#888" text-anchor="end">4.8 kg · 59 分 · 巡航 16 m/s</text>
+
+    <circle cx="566" cy="158" r="7" fill="#0277BD"/>
+    <text x="578" y="153" font-size="12.5" fill="#01579B">Trinity F90+</text>
+    <text x="578" y="169" font-size="11" fill="#888">5 kg · 90 分 · 巡航 17 m/s</text>
+
+    <circle cx="616" cy="283" r="7" fill="#2E7D32"/>
+    <text x="628" y="296" font-size="12.5" fill="#1B5E20">DJI Matrice 350 RTK</text>
+    <text x="628" y="312" font-size="11" fill="#888">MTOW 9.2 kg · 55 分(無酬載)</text>
+
+    <circle cx="806" cy="408" r="7" fill="#EF6C00"/>
+    <line x1="806" y1="408" x2="768" y2="440" stroke="#EF6C00" stroke-width="1"/>
+    <text x="764" y="444" font-size="12.5" fill="#E65100" text-anchor="end">DJI Agras T50</text>
+    <text x="764" y="460" font-size="11" fill="#888" text-anchor="end">MTOW 92 kg · 20 分 · 噴灑 40 kg</text>
+
+    <circle cx="809" cy="416" r="7" fill="#EF6C00"/>
+    <line x1="809" y1="416" x2="845" y2="452" stroke="#EF6C00" stroke-width="1"/>
+    <text x="849" y="456" font-size="12.5" fill="#E65100">DJI FlyCart 30</text>
+    <text x="849" y="472" font-size="11" fill="#888">MTOW 95 kg · 載重 30 kg ※</text>
+  </g>
+
+  <!-- 對比註記 -->
+  <path d="M 600 200 Q 640 235 630 268" fill="none" stroke="#7B1FA2" stroke-width="1.6" stroke-dasharray="5 4"/>
+  <rect x="248" y="140" width="300" height="56" rx="8" fill="#F3E5F5" stroke="#7B1FA2"/>
+  <text x="398" y="162" text-anchor="middle" font-size="12.5" font-weight="700" fill="#4A148C">同一個重量級,航程差三倍</text>
+  <text x="398" y="182" text-anchor="middle" font-size="11.5" fill="#4A148C">差別不在電池,在升力是靠推力還是靠機翼</text>
+
+  <text x="110" y="556" font-size="11.5" fill="#777">
+    ※ FlyCart 30 的規格給的是航程(空載 28 km / 滿載 16 km),圖上的位置由「滿載航程 ÷ 自動航線巡航 15 m/s」推算,約 18 分。
+  </text>
+  <text x="110" y="574" font-size="11.5" fill="#777">
+    量測條件各家不同(速度、酬載、風),此圖用於看量級關係,不適合拿來逐項比較。折算成可用值的方法見本章第 3 節。
+  </text>
+</svg>

@@ -13,13 +13,14 @@
 | 你的處境 | 建議路線 |
 |---|---|
 | 想先知道這領域有哪些現成東西可用,不想重造輪子 | [05 開源生態](docs/05-open-source-landscape/) → [00 系統全景](docs/00-system-overview/) |
-| 接到 GCS 或後端專案,要設計任務服務 | [00 系統全景](docs/00-system-overview/) → [40 任務控制](docs/40-mission-control/) → [50 地面站與雲端](docs/50-gcs-and-cloud/) |
+| 接到 GCS 或後端專案,要設計任務服務 | [00 系統全景](docs/00-system-overview/) → [15 機體與包絡](docs/15-airframes-and-envelope/) → [40 任務控制](docs/40-mission-control/) → [50 地面站與雲端](docs/50-gcs-and-cloud/) |
+| 要規劃航線、估任務時間、判斷這台機飛不飛得完 | [15 機體參數與飛行包絡](docs/15-airframes-and-envelope/) |
 | 要寫跑在機上的程式(視覺、決策、追蹤) | [30 機載運算](docs/30-companion-compute/) → [40 任務控制](docs/40-mission-control/) → [20 通訊協定](docs/20-protocols/) |
 | 要看懂飛控在做什麼,或想改飛控 | [10 飛控軟體](docs/10-flight-controller/) → [20 通訊協定](docs/20-protocols/) |
 | 要建一套能自動跑的驗證環境 | [60 模擬與測試](docs/60-simulation-and-testing/) → [reference-impl](reference-impl/) |
 | 想知道 AI 工具在這個領域能幫到哪、不能碰哪 | [70 AI 協作開發](docs/70-ai-assisted-development/) |
 
-完全沒接觸過的話,照 00 → 05 → 10 → 20 → 30 → 40 → 50 → 60 → 70 的順序走一遍最省力。前面兩章建立邊界感,中間三章把資料流打通,後面四章才是產品化與工程化。
+完全沒接觸過的話,照 00 → 05 → 10 → 15 → 20 → 30 → 40 → 50 → 60 → 70 的順序走一遍最省力。前面兩章建立邊界感,中間三章把資料流打通,後面四章才是產品化與工程化。
 
 ## 章節
 
@@ -28,6 +29,7 @@
 | [00](docs/00-system-overview/) | 系統全景 | 為什麼這套系統非得分成這幾層?每一層各自不負責什麼? |
 | [05](docs/05-open-source-landscape/) | 開源生態與選型 | 現在有哪些活著的開源專案?哪些該用、哪些該繞開? |
 | [10](docs/10-flight-controller/) | 飛控軟體 | 飛控韌體的軟體架構長什麼樣?怎麼擴充、怎麼測? |
+| [15](docs/15-airframes-and-envelope/) | 機體參數與飛行包絡 | 機體規格怎麼讀?續航、轉彎半徑、風怎麼變成航跡規劃的約束? |
 | [20](docs/20-protocols/) | 通訊協定 | MAVLink 為什麼設計成這樣?頻寬與延遲的預算怎麼算? |
 | [30](docs/30-companion-compute/) | 機載運算 | 機上那台 Linux 該放什麼?跟飛控之間的介面怎麼選? |
 | [40](docs/40-mission-control/) | 任務控制 | 「任務控制」的三層各在哪、責任怎麼切、中斷了怎麼恢復? |
