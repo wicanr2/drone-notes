@@ -39,14 +39,18 @@
 
 ## 可跑的參考實作
 
-[`reference-impl/`](reference-impl/) 裡是一套最小但真的能跑的骨架:Docker Compose 起 PX4 SITL,一個帶 REST API 的任務服務,一個機載任務執行器,加上把「起飛 → 巡航 → 返航」跑完的整合測試。文件裡講的三層邊界,在這裡都能對到實際檔案。
+[`reference-impl/`](reference-impl/) 裡是一套最小但真的能跑的骨架:一個帶 REST API 的任務服務、一個機載任務執行器、可注入中斷的假飛控,以及宣告式的情境測試。同一套邏輯可以接假飛控(秒級、不需要 PX4)或真的 PX4 SITL。
 
 ```bash
 cd reference-impl
-docker compose up -d
-curl -X POST localhost:8000/missions -H 'content-type: application/json' \
-     -d @examples/survey-mission.json
+docker compose up -d                                    # 假飛控,不需要 PX4
+docker compose exec mission-controller \
+  python scripts/run_scenario.py "scenarios/*.yaml"
+
+MC_VEHICLE=mavsdk docker compose --profile sitl up -d    # 換成真的 PX4 SITL
 ```
+
+單元測試 20 項、兩個情境在假飛控後端、一個情境在真 PX4 SITL v1.17 + Gazebo 上都跑過。哪些驗過、哪些沒有,[那裡的 README](reference-impl/README.md#驗證狀態) 有逐項說明。
 
 ## 這份文件不涵蓋什麼
 

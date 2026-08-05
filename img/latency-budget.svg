@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="600" viewBox="0 0 1000 600"
+     font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="600" fill="#ffffff"/>
+
+  <text x="500" y="38" text-anchor="middle" font-size="22" font-weight="700" fill="#1a1a1a">
+    延遲預算:哪些程式碼必須跑在飛控上
+  </text>
+  <text x="500" y="62" text-anchor="middle" font-size="13" fill="#666">
+    相位落後 φ = ω · τ,取 10° 為通訊延遲的預算上限 → τ_max = 0.1745 / ω_c
+  </text>
+
+  <text x="60" y="112" font-size="14" font-weight="600" fill="#2E7D32">各層迴路容許的延遲</text>
+
+  <!-- 各層迴路的延遲預算:標籤統一高度,連接線只畫在標籤下方到軸線之間 -->
+  <g text-anchor="middle">
+    <text x="291" y="152" font-size="13.5" font-weight="600" fill="#1B5E20">角速率</text>
+    <text x="291" y="171" font-size="12.5" fill="#2E7D32">0.9 ms</text>
+    <line x1="291" y1="180" x2="291" y2="226" stroke="#2E7D32" stroke-width="1.5"/>
+    <circle cx="291" cy="228" r="5" fill="#2E7D32"/>
+
+    <text x="389" y="152" font-size="13.5" font-weight="600" fill="#1B5E20">姿態</text>
+    <text x="389" y="171" font-size="12.5" fill="#2E7D32">2.8 ms</text>
+    <line x1="389" y1="180" x2="389" y2="226" stroke="#2E7D32" stroke-width="1.5"/>
+    <circle cx="389" cy="228" r="5" fill="#2E7D32"/>
+
+    <text x="529" y="152" font-size="13.5" font-weight="600" fill="#E65100">速度</text>
+    <text x="529" y="171" font-size="12.5" fill="#EF6C00">14 ms</text>
+    <line x1="529" y1="180" x2="529" y2="226" stroke="#EF6C00" stroke-width="1.5"/>
+    <circle cx="529" cy="228" r="5" fill="#EF6C00"/>
+
+    <text x="650" y="152" font-size="13.5" font-weight="600" fill="#01579B">位置</text>
+    <text x="650" y="171" font-size="12.5" fill="#0277BD">56 ms</text>
+    <line x1="650" y1="180" x2="650" y2="226" stroke="#0277BD" stroke-width="1.5"/>
+    <circle cx="650" cy="228" r="5" fill="#0277BD"/>
+
+    <text x="850" y="152" font-size="13.5" font-weight="600" fill="#4A148C">任務決策</text>
+    <text x="850" y="171" font-size="12.5" fill="#7B1FA2">560 ms</text>
+    <line x1="850" y1="180" x2="850" y2="226" stroke="#7B1FA2" stroke-width="1.5"/>
+    <circle cx="850" cy="228" r="5" fill="#7B1FA2"/>
+  </g>
+
+  <!-- 對數座標軸 -->
+  <line x1="90" y1="228" x2="945" y2="228" stroke="#333" stroke-width="2"/>
+  <g font-size="12" fill="#555" text-anchor="middle">
+    <line x1="100" y1="228" x2="100" y2="236" stroke="#333" stroke-width="1.5"/>
+    <text x="100" y="254">0.1 ms</text>
+    <line x1="300" y1="228" x2="300" y2="236" stroke="#333" stroke-width="1.5"/>
+    <text x="300" y="254">1 ms</text>
+    <line x1="500" y1="228" x2="500" y2="236" stroke="#333" stroke-width="1.5"/>
+    <text x="500" y="254">10 ms</text>
+    <line x1="700" y1="228" x2="700" y2="236" stroke="#333" stroke-width="1.5"/>
+    <text x="700" y="254">100 ms</text>
+    <line x1="900" y1="228" x2="900" y2="236" stroke="#333" stroke-width="1.5"/>
+    <text x="900" y="254">1000 ms</text>
+    <text x="500" y="278" font-size="12" fill="#777">延遲(對數尺度)</text>
+  </g>
+
+  <text x="60" y="316" font-size="14" font-weight="600" fill="#455A64">各種通道的實際延遲</text>
+
+  <g font-size="12.5">
+    <rect x="94" y="330" width="12" height="20" rx="3" fill="#90A4AE"/>
+    <text x="118" y="345" fill="#37474F">SPI 讀 IMU(~0.1 ms)</text>
+
+    <rect x="160" y="358" width="140" height="20" rx="3" fill="#78909C"/>
+    <text x="310" y="373" fill="#37474F">機上乙太網路 0.2~1 ms</text>
+
+    <rect x="300" y="386" width="140" height="20" rx="3" fill="#78909C"/>
+    <text x="450" y="401" fill="#37474F">機上 USB / UART 1~5 ms</text>
+
+    <rect x="440" y="414" width="155" height="20" rx="3" fill="#FFB74D"/>
+    <text x="605" y="429" fill="#E65100">地面 WiFi 5~30 ms</text>
+
+    <rect x="595" y="442" width="86" height="20" rx="3" fill="#FF8A65"/>
+    <text x="691" y="457" fill="#BF360C">4G / 5G 到近端 30~80 ms</text>
+
+    <rect x="700" y="470" width="95" height="20" rx="3" fill="#E57373"/>
+    <text x="805" y="485" fill="#B71C1C">跨區域雲端 100~300 ms</text>
+  </g>
+
+  <!-- 分界線:位置迴路的預算 -->
+  <line x1="650" y1="186" x2="650" y2="502" stroke="#0277BD" stroke-width="2" stroke-dasharray="7 5" opacity="0.5"/>
+
+  <rect x="72" y="516" width="300" height="60" rx="8" fill="#E8F5E9" stroke="#2E7D32"/>
+  <text x="222" y="540" text-anchor="middle" font-size="13.5" font-weight="600" fill="#1B5E20">
+    虛線左邊:只能在飛控自己的 MCU 上
+  </text>
+  <text x="222" y="561" text-anchor="middle" font-size="12.5" fill="#2E7D32">
+    連送到機上另一台電腦再回來都超支
+  </text>
+
+  <rect x="392" y="516" width="536" height="60" rx="8" fill="#E1F5FE" stroke="#0277BD"/>
+  <text x="660" y="540" text-anchor="middle" font-size="13.5" font-weight="600" fill="#01579B">
+    位置迴路的 56 ms 預算,正好落在本地 WiFi 與近端行動網路的範圍
+  </text>
+  <text x="660" y="561" text-anchor="middle" font-size="12.5" fill="#0277BD">
+    這是「外部程式可以下位置指令,但不能下姿態指令」的物理原因
+  </text>
+</svg>

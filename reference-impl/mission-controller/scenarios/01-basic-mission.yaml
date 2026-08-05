@@ -1,0 +1,25 @@
+name: 起飛-飛四點-降落
+vehicle_id: sim-01
+timeout_s: 300
+
+mission:
+  name: basic-square
+  version: 1
+  actions:
+    - type: takeoff
+      params: { altitude_m: 10.0 }
+    - type: goto
+      params: { lat: 47.3980, lon: 8.5456, alt_rel_m: 10.0 }
+    - type: goto
+      params: { lat: 47.3980, lon: 8.5460, alt_rel_m: 10.0 }
+    - type: goto
+      params: { lat: 47.3977, lon: 8.5460, alt_rel_m: 10.0 }
+    - type: land
+      params: {}
+
+expect:
+  final_state: completed
+  events:
+    - { event: action_started, count: 5 }
+    - { event: action_completed, count: 5 }
+    - { event: execution_finished }

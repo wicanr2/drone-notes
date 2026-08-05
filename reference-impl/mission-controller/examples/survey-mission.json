@@ -1,0 +1,12 @@
+{
+  "name": "survey-4points",
+  "version": 1,
+  "actions": [
+    { "type": "takeoff", "params": { "altitude_m": 20.0 } },
+    { "type": "goto", "params": { "lat": 47.3980, "lon": 8.5456, "alt_rel_m": 20.0 } },
+    { "type": "goto", "params": { "lat": 47.3980, "lon": 8.5462, "alt_rel_m": 20.0 } },
+    { "type": "goto", "params": { "lat": 47.3976, "lon": 8.5462, "alt_rel_m": 20.0 } },
+    { "type": "goto", "params": { "lat": 47.3976, "lon": 8.5456, "alt_rel_m": 20.0 } },
+    { "type": "rtl", "params": {} }
+  ]
+}

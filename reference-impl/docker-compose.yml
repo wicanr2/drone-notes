@@ -1,0 +1,53 @@
+# 預設(不帶 profile):只起任務服務,用內建的假飛控。不需要 PX4。
+#   docker compose up -d
+#
+# 接真的 PX4 SITL:
+#   MC_VEHICLE=mavsdk docker compose --profile sitl up -d
+#
+# 為什麼用固定 IP 而不是服務名:PX4 的 entrypoint 在「啟動當下」就把目標
+# 主機名解析成 IP 並寫進 MAVLink 的目的端。之後只要 mission-controller
+# 被重建拿到新 IP,PX4 就會繼續送到舊位址,現象是連得上卻永遠等不到遙測。
+# 固定 IP 讓重建不影響定址。(這是實測踩到才改的。)
+
+services:
+  mission-controller:
+    build: ./mission-controller
+    container_name: drone-notes-mc
+    ports:
+      - "8000:8000"
+    environment:
+      MC_VEHICLE: ${MC_VEHICLE:-fake}
+      MC_MAVSDK_ADDRESS: udpin://0.0.0.0:14540
+      MC_CONNECT_TIMEOUT: "300"
+      MC_DB: /data/mc.sqlite3
+      MC_FAKE_SPEED: "20"
+    volumes:
+      - mc-data:/data
+    networks:
+      drone:
+        ipv4_address: 172.30.7.10
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 10s
+      timeout: 3s
+      retries: 30
+      start_period: 300s
+
+  px4-sitl:
+    image: jonasvautherin/px4-gazebo-headless:1.17.0
+    container_name: drone-notes-px4
+    profiles: ["sitl"]
+    # 兩個參數分別是 HOST_API(UDP 14540)與 HOST_QGC(UDP 14550)。
+    command: ["172.30.7.10", "172.30.7.10"]
+    networks:
+      drone:
+        ipv4_address: 172.30.7.20
+
+networks:
+  drone:
+    ipam:
+      config:
+        - subnet: 172.30.7.0/24
+
+volumes:
+  mc-data:

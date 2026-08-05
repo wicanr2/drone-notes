@@ -1,0 +1,29 @@
+# 需要有相機與雲台。接 PX4 SITL 時預設的 gz_x500 沒有相機,
+# 這個情境只在假飛控後端(MC_VEHICLE=fake)下會通過。
+name: 環繞目標拍八張
+vehicle_id: sim-01
+timeout_s: 300
+
+mission:
+  name: orbit-photo
+  version: 1
+  actions:
+    - type: takeoff
+      params: { altitude_m: 15.0 }
+    - type: orbit_photo
+      params:
+        lat: 47.3977
+        lon: 8.5456
+        alt_rel_m: 15.0
+        radius_m: 10.0
+        shots: 8
+        settle_s: 1.0
+        gimbal_pitch_deg: -15.0
+    - type: land
+      params: {}
+
+expect:
+  final_state: completed
+  events:
+    - { event: photo_captured, count: 8 }
+    - { event: action_completed, count: 3 }
