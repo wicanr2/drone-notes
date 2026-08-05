@@ -23,8 +23,10 @@ README.md            索引與閱讀動線
 CONTEXT.md           術語表 + 版本現況查證表 + 表述決策
 PLAN.md              分輪進度與待辦
 docs/NN-topic/*.md   數字前綴決定閱讀順序,每檔一個主題
+docs/NN-topic/appendix/  產生出來的查詢用參考,不進閱讀動線
 img/*.svg            所有手繪圖
 reference-impl/      可跑的最小參考實作
+tools/               文件產生器
 ```
 
 路徑用英文 kebab-case,標題與內文用繁中。檔名前綴的數字是閱讀順序,不是重要性排序。
@@ -42,6 +44,19 @@ google-chrome --headless --no-sandbox --disable-gpu --screenshot=/tmp/x.png \
 ```
 
 用 Read 看 PNG,有文字重疊、截斷、比例誤導就修再驗。
+
+## API 參考:不手抄,要收就留產生器
+
+原則是**不把 API 快照手抄進 repo**——手抄的東西會過期,而且過期的時候看不出來。但這不等於不能收 API 參考,而是收的方式要不同:
+
+- **留產生器,不留手抄稿。** 產生器放 `tools/`,產物放對應章節的 `appendix/`。產物開頭一定寫明由哪支腳本、從哪個釘死的版本產生。
+- **釘版本。** 標題帶版本號,出處表寫清楚原始碼的 tag 或套件版本。
+- **產物不手改。** 要改就改產生器再重跑。
+- **解析涵蓋率要誠實。** 抓不到的、原始碼裡就沒說明的,照實標出來,不代為推測。
+
+收與不收的判準是**有沒有官方文件給不了的東西**:版本對得上、分得出哪些是穩定契約、可以 grep 與 diff。純粹重複官方參考的內容不收。
+
+現有的三處:[MAVSDK 介面全貌](docs/20-protocols/03-mavsdk-api-surface.md)(套件無官方參考)、[PX4 附錄三份](docs/10-flight-controller/appendix/)(版本對齊與契約分區)。
 
 ## reference-impl 規則
 

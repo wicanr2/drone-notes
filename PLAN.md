@@ -25,6 +25,7 @@
 | R17 | README 改版 | 系統架構圖與爆炸圖(兼作章節導覽) | ✅ |
 | R18 | 模擬素材 | `docs/65-physical-ai-sim/03-assets-and-worlds.md`,授權以 `gh api` 逐一查證 | ✅ |
 | R19 | MAVSDK 介面與待查證清項 | `docs/20-protocols/03-mavsdk-api-surface.md`(產生器 + 產物)、雲台與相機實作 + 7 項測試、版本表與台灣法規查證 | ✅ |
+| R20 | PX4 介面全集 | `tools/dump_px4_api.py` + `docs/10-flight-controller/appendix/` 三份,釘 v1.17.0 | ✅ |
 
 ## 每輪收尾流程
 

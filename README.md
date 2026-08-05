@@ -91,7 +91,7 @@ MC_VEHICLE=mavsdk docker compose --profile sitl up -d    # 換成真的 PX4 SITL
 
 ## 這份文件不涵蓋什麼
 
-- **不是 API 參考**。MAVLink 訊息欄位、PX4 參數、ROS 2 介面請查官方文件,那些東西會改版,抄一份到這裡只會過期。
+- **正文不是 API 參考**。每一章講的是為什麼,不是欄位表。查詢用的介面全集另外收在附錄,而且是產生出來的——[PX4 v1.17.0 的 uORB、參數與 MAVLink 介面](docs/10-flight-controller/appendix/)、[MAVSDK-Python 3.17.2 的介面全貌](docs/20-protocols/03-mavsdk-api-surface.md)。換版本重跑產生器就更新,不會變成過期的手抄稿。
 - **不是法規手冊**。各國規則差異大且更新頻繁,這裡只講制度設計的通則與它對系統架構的影響。
 - **不是航太工程教材**。空氣動力、結構、電池化學只在會影響軟體設計時才提到。
 

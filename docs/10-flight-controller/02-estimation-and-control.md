@@ -190,6 +190,8 @@ PX4 把當下所有觸發中的條件放在 `failsafe_flags` 主題裡。做地�
 
 PX4 的 `msg/` 底下分成兩區:一般訊息,以及 `msg/versioned/`。後者是**刻意穩定下來、當作外部 API 的那一批**,包含 `TrajectorySetpoint`、`GotoSetpoint`、`VehicleAttitude`、`VehicleLocalPosition`、`VehicleStatus`、`VehicleCommand` 等等。
 
+比例值得記一下:v1.17.0 有 244 則 uORB 訊息,**只有 34 則在 `msg/versioned/`**。技術上兩區沒有差別,伴隨電腦都訂閱得到;差別在承諾——versioned 的那批改動會顧及相容性,其餘 210 則可能在任何一個版本改掉欄位而不另行通知。逐則的欄位與常數見[附錄](appendix/uorb-all-topics.md)。
+
 這解決的是一個很現實的問題:飛控韌體與伴隨電腦上的 ROS 2 程式是分開更新的,韌體改了訊息定義,機載程式就爆掉。PX4 從 v1.16 起提供訊息版本轉換節點,能在不同版本的定義之間做動態轉換。
 
 `msg/versioned/` 裡還有一組值得注意的訊息:`RegisterExtComponentRequest` / `RegisterExtComponentReply`、`ArmingCheckRequest` / `ArmingCheckReply`、`ModeCompleted`、`ConfigOverrides`。它們構成了**外部元件註冊機制**——伴隨電腦上的程式可以向飛控註冊自己是一個飛行模式、參與 pre-arm 檢查、回報模式完成。這正是 `px4-ros2-interface-lib` 底下的機制,下一篇會展開。

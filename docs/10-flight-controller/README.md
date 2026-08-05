@@ -9,6 +9,7 @@
 | [01](01-firmware-architecture.md) | 韌體的軟體架構 | 為什麼要 RTOS、為什麼是 work queue 而非每模組一執行緒、uORB 為什麼是事件溯源、為什麼由資料觸發排程 |
 | [02](02-estimation-and-control.md) | 從感測器到馬達 | 完整資料流與各段的 uORB 主題、為什麼是串級控制、EKF 的 innovation 怎麼判讀、control allocator 為什麼取代 mixer、commander 的狀態機 |
 | [03](03-extending-and-testing.md) | 擴充與測試 | 三條擴充路徑的判準、改韌體要動哪些檔案、用 ROS 2 註冊飛行模式、飛控的測試金字塔、故障注入與重播 |
+| [附錄](appendix/) | v1.17.0 介面全集 | 244 則 uORB 訊息(標出哪 34 則是對外契約)、2059 個參數、89 個 MAVLink 發送串流與 51 種接收訊息。查詢用,從原始碼產生 |
 
 讀完應該能回答:
 
