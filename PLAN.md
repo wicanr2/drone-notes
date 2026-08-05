@@ -53,6 +53,7 @@
 
 ## 後續可擴充
 
+- **獨立的模擬素材 repo**(名稱未定)。這個 repo 只收清單與判斷,不收 3D 檔案——素材授權從 MIT、BSD-3、NVIDIA 資產條款到「查無授權檔」都有,混進 MIT 的文件 repo 會讓整包的授權狀態說不清楚。要收成一包時另開,每一項素材連同自己的授權與出處一起放。判斷依據見 [65-03](docs/65-physical-ai-sim/03-assets-and-worlds.md)。
 - 各章的實測數據:鏈路頻寬預算、Offboard 延遲、EKF innovation 正常區間
 - 多機模擬與群飛的 CI 範例
 - 影像管線(GStreamer / WebRTC)的完整 lab

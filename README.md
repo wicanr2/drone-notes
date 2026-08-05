@@ -98,3 +98,5 @@ MC_VEHICLE=mavsdk docker compose --profile sitl up -d    # 換成真的 PX4 SITL
 ## 授權
 
 文字與程式碼是 MIT。[`img/photos/`](img/photos/) 底下的照片取自 Wikimedia Commons 的自由授權素材(公有領域 / CC0 / CC BY / CC BY-SA),各自沿用原授權,逐張的作者與授權列在 [`img/photos/CREDITS.md`](img/photos/CREDITS.md)。
+
+這裡不收第三方 3D 模型與場景檔。那些素材的授權從 MIT 到「查無授權檔」都有,收進來會讓整包的授權狀態說不清楚。可引用的素材清單與逐項授權標註在 [65-03](docs/65-physical-ai-sim/03-assets-and-worlds.md),檔案本身之後另開素材 repo 收。
