@@ -19,6 +19,8 @@
 | R11 | 手繪 SVG | `img/` 三張:延遲預算、座標系對照、三層任務控制 | ✅ |
 | R12 | 參考實作骨架 | `reference-impl/`,已在 PX4 SITL v1.17 上驗過 | ✅ |
 | R13 | 機體參數與飛行包絡 | `docs/15-airframes-and-envelope/` | ✅ |
+| R14 | 軍用平台與照片 | `docs/15-.../03-military-classification.md`、`img/photos/` | ✅ |
+| R15 | Physical AI 模擬環境 | `docs/65-physical-ai-sim/` | ✅ |
 
 ## 每輪收尾流程
 
@@ -39,6 +41,9 @@
 | 情境檔的 `metrics` 斷言(需解析 ULog) | 未實作,格式已在 docs/60 定義 |
 | 情境檔的 `inject` 故障注入 | 未實作,假飛控後端已有排程中斷的機制可接 |
 | MAVSDK 的雲台與相機介面 | 未接,各版本簽章有變動,要對照實際版本才寫 |
+| Isaac Lab 3.0 與 Newton 的整合進度 | Beta 階段,穩定後要回頭更新 65 章 |
+| Aerial Gym 對 Isaac Lab / Isaac Sim 的支援 | 官方標示開發中,完成後選型建議要改 |
+| `mc_nn_control` 各參數的精確語意與實際飛行驗證 | 只確認模組與參數存在,未實跑 |
 
 ## 後續可擴充
 

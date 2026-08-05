@@ -142,4 +142,6 @@ Isaac Sim 本身不知道 PX4 的存在,需要橋接。開源的方案是 [Pegas
 4. CI 建在 Gazebo 上,Isaac Sim 用於視覺相關的定期驗證;把 CI 建在 Isaac Sim 上會讓它慢到沒人跑。
 5. 常見的坑:模擬時間沒設定、測試用系統睡眠、確定性設定、GPU 排隊、版本組合。
 
+要拿模擬來**訓練**策略而不只是驗證,需求會完全不同(吞吐、隨機化、GPU 平行),而且堆疊也不一樣——見 [65 Physical AI 模擬環境](../65-physical-ai-sim/)。
+
 → [03 建一套自動化驗證系統](03-ci-and-regression.md)

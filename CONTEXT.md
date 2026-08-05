@@ -46,6 +46,19 @@
 | Isaac Sim | 6.0 GA(6.0.1 為最新修訂) | 前一版為 5.1 |
 | Pegasus Simulator | v5.1.0 對應 Isaac Sim 5.1 | 支援 PX4,ArduPilot 為實驗性。**是否支援 Isaac Sim 6.0:待查證** |
 
+### Physical AI 訓練堆疊
+
+| 專案 | 狀態 | 備註 |
+|---|---|---|
+| Newton | 1.0(2026-03 GTC 發布),Apache-2.0 | NVIDIA + Google DeepMind + Disney Research,Linux Foundation 管理;建在 Warp + OpenUSD,MuJoCo Warp 為主要 backend |
+| Isaac Lab | 2.3.2(2026-01-30)加入無人機支援;3.0 Beta 整合 Newton(develop 分支) | BSD-3-Clause |
+| Aerial Gym Simulator | 活躍,BSD-3-Clause | 仍建在 Isaac Gym Preview;Isaac Lab / Isaac Sim 支援標示為開發中 |
+| AirGym | 活躍,BSD-3-Clause | 同樣建在 Isaac Gym |
+| gym-pybullet-drones | 活躍,MIT | CPU 可跑 |
+| aerial-autonomy-stack | 活躍,MIT | Gazebo + PX4/ArduPilot 多機 + ROS 2 Humble + Jetson 部署 |
+| Cosmos Predict | 2.5,Apache-2.0,2B / 14B 兩種規模 | 影片類世界基礎模型需每卡 80 GB VRAM 起 |
+| PX4 `mc_nn_control` | 存在於 main 分支 | 位置 setpoint 到控制分配的神經網路控制模組,含啟用開關與輸出限幅參數 |
+
 ### 地面站
 
 | 專案 | 狀態 |
@@ -131,6 +144,10 @@
 | HITL | Hardware In The Loop,真實飛控板接模擬器,驗證韌體在真硬體上的行為 |
 | ULog | PX4 的飛行紀錄格式,事後分析用 |
 | Flight Review | 上傳 ULog 產生分析報告的開源服務 |
+| sim-to-real gap | 模擬與真機的行為落差;策略可能學會利用模擬器的缺陷 |
+| Domain randomization | 訓練時隨機化模型參數與環境條件,逼策略不依賴單一設定 |
+| 世界基礎模型 | 生成擬真環境影片的大模型,用來產生訓練資料 |
+| 分布外輸入(OOD) | 落在訓練時沒見過範圍的觀測;神經網路在此的輸出可能完全無意義 |
 
 ---
 
