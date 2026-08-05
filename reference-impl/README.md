@@ -1,4 +1,15 @@
-# reference-impl:三層任務控制的最小骨架
+# reference-impl
+
+兩套可跑的骨架:
+
+| 目錄 | 對應章節 | 內容 |
+|---|---|---|
+| [`mission-controller/`](mission-controller/) | [40 任務控制](../docs/40-mission-control/) | 雲端任務服務 + 機載任務執行器,可接假飛控或真 PX4 SITL |
+| [`policy-lab/`](policy-lab/) | [65 Physical AI 模擬環境](../docs/65-physical-ai-sim/) | 飛行策略訓練骨架:訓練與驗收環境分離、安全外殼、指標驗收 |
+
+---
+
+# mission-controller:三層任務控制的最小骨架
 
 這裡是[文件](../docs/40-mission-control/)講的東西的實際程式碼。目標不是做一個完整產品,而是讓「機載任務執行器怎麼寫、雲端任務服務怎麼設計、怎麼把它接上真的飛控並自動驗證」這幾件事有一份可以跑、可以改的起點。
 
