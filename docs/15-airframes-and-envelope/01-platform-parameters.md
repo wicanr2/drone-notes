@@ -145,4 +145,14 @@ A = 槳盤總面積
 | Quantum Trinity F90+ | [Quantum Systems 型錄](https://optron.com/quantum-systems/wp-content/uploads/2022/02/ds_quantum-trinity-f90.pdf) |
 | Crazyflie 2.1 | [Bitcraze 產品頁](https://www.bitcraze.io/products/old-products/crazyflie-2-1/) |
 
+沒有收錄廠商的官方產品照,因為那些照片有版權,放進公開 repo 會有授權問題;
+上表的連結就是官方頁面,照片在那裡看得到。本 repo 收錄的照片全部是自由授權素材,
+見 [`img/photos/CREDITS.md`](../../img/photos/CREDITS.md)。
+
+<p align="center">
+  <img src="../../img/photos/dji-matrice-300.jpg" width="620"
+       alt="DJI Matrice 系列工業多旋翼,機身下方掛載雲台酬載">
+  <br><sub>工業多旋翼的典型外型:摺疊機臂、下掛雲台、雙電池。圖為 DJI Matrice 300(CC BY 3.0)</sub>
+</p>
+
 → [02 從飛行包絡到航跡規劃](02-trajectory-and-planning.md)

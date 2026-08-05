@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="640" viewBox="0 0 1000 640"
+     font-family="'Noto Sans CJK TC','PingFang TC','Microsoft JhengHei',sans-serif">
+  <rect width="1000" height="640" fill="#ffffff"/>
+
+  <text x="500" y="34" text-anchor="middle" font-size="21" font-weight="700" fill="#1a1a1a">
+    真實比例對照:從 9 公分到 40 公尺
+  </text>
+  <text x="500" y="56" text-anchor="middle" font-size="12.5" fill="#666">
+    橫線長度是翼展或展開後的最大寬度。兩個面板各自等比例,但兩者的比例尺差 10 倍
+  </text>
+
+  <!-- ===== 面板 A:大型 ===== -->
+  <rect x="40" y="70" width="920" height="192" rx="8" fill="#FAFAFA" stroke="#BDBDBD"/>
+  <text x="56" y="90" font-size="13.5" font-weight="700" fill="#444">大型平台(比例尺:1 公尺 = 18 px)</text>
+
+  <g font-size="12.5">
+    <text x="210" y="121" text-anchor="end" fill="#333">RQ-4 Global Hawk</text>
+    <rect x="220" y="112" width="718" height="11" rx="5" fill="#C62828"/>
+    <text x="220" y="106" font-size="11.5" fill="#B71C1C">翼展 39.9 m · MTOW 14.6 t</text>
+
+    <text x="210" y="157" text-anchor="end" fill="#333">MQ-9 Reaper</text>
+    <rect x="220" y="148" width="362" height="11" rx="5" fill="#EF6C00"/>
+    <text x="592" y="158" font-size="11.5" fill="#E65100">翼展 20.1 m · MTOW 4.76 t</text>
+
+    <text x="210" y="193" text-anchor="end" fill="#333">Bayraktar TB2</text>
+    <rect x="220" y="184" width="216" height="11" rx="5" fill="#F9A825"/>
+    <text x="446" y="194" font-size="11.5" fill="#8D6E00">翼展 12 m · MTOW 650 kg</text>
+
+    <text x="210" y="229" text-anchor="end" fill="#333">ScanEagle</text>
+    <rect x="220" y="220" width="56" height="11" rx="5" fill="#2E7D32"/>
+    <text x="286" y="230" font-size="11.5" fill="#1B5E20">翼展 3.1 m · MTOW 26 kg</text>
+  </g>
+
+  <!-- 面板 A 的人形參考(1.7 m → 31 px) -->
+  <g stroke="#555" stroke-width="1.6" fill="none">
+    <circle cx="880" cy="222" r="3.2" fill="#555" stroke="none"/>
+    <line x1="880" y1="226" x2="880" y2="242"/>
+    <line x1="874" y1="232" x2="886" y2="232"/>
+    <line x1="880" y1="242" x2="875" y2="252"/>
+    <line x1="880" y1="242" x2="885" y2="252"/>
+  </g>
+  <text x="880" y="264" text-anchor="middle" font-size="11" fill="#666">人 1.7 m</text>
+
+  <!-- ===== 面板 B:小型 ===== -->
+  <rect x="40" y="280" width="920" height="322" rx="8" fill="#F5F9FF" stroke="#90CAF9"/>
+  <text x="56" y="300" font-size="13.5" font-weight="700" fill="#0D47A1">小型平台(比例尺:1 公尺 = 180 px,是上面的 10 倍)</text>
+
+  <g font-size="12.5">
+    <text x="210" y="331" text-anchor="end" fill="#333">DJI Agras T50</text>
+    <rect x="220" y="322" width="504" height="11" rx="5" fill="#EF6C00"/>
+    <text x="220" y="316" font-size="11.5" fill="#E65100">展開 2.8 m · MTOW 92 kg</text>
+
+    <text x="210" y="367" text-anchor="end" fill="#333">Trinity F90+</text>
+    <rect x="220" y="358" width="431" height="11" rx="5" fill="#0277BD"/>
+    <text x="661" y="368" font-size="11.5" fill="#01579B">翼展 2.39 m · MTOW 5 kg</text>
+
+    <text x="210" y="403" text-anchor="end" fill="#333">RQ-11B Raven</text>
+    <rect x="220" y="394" width="252" height="11" rx="5" fill="#2E7D32"/>
+    <text x="482" y="404" font-size="11.5" fill="#1B5E20">翼展 1.4 m · 約 1.9 kg</text>
+
+    <text x="210" y="439" text-anchor="end" fill="#333">WingtraOne GEN II</text>
+    <rect x="220" y="430" width="225" height="11" rx="5" fill="#0277BD"/>
+    <text x="455" y="440" font-size="11.5" fill="#01579B">翼展 1.25 m · MTOW 4.8 kg</text>
+
+    <text x="210" y="475" text-anchor="end" fill="#333">DJI Mini 4 Pro</text>
+    <rect x="220" y="466" width="67" height="11" rx="5" fill="#2E7D32"/>
+    <text x="297" y="476" font-size="11.5" fill="#1B5E20">展開含槳 0.37 m · &lt; 249 g</text>
+
+    <text x="210" y="511" text-anchor="end" fill="#333">Crazyflie 2.1</text>
+    <rect x="220" y="502" width="17" height="11" rx="5" fill="#2E7D32"/>
+    <text x="247" y="512" font-size="11.5" fill="#1B5E20">0.092 m · 29 g</text>
+  </g>
+
+  <!-- 面板 B 的人形參考(1.7 m → 306 px) -->
+  <g stroke="#555" stroke-width="2.4" fill="none">
+    <circle cx="900" cy="292" r="14" fill="#555" stroke="none"/>
+    <line x1="900" y1="306" x2="900" y2="470"/>
+    <line x1="860" y1="350" x2="940" y2="350"/>
+    <line x1="900" y1="470" x2="866" y2="574"/>
+    <line x1="900" y1="470" x2="934" y2="574"/>
+  </g>
+  <text x="900" y="592" text-anchor="middle" font-size="11.5" fill="#666">人 1.7 m</text>
+
+  <text x="40" y="622" font-size="11.5" fill="#777">
+    比例尺差 10 倍:Global Hawk 的翼展是 Crazyflie 的 433 倍,放在同一張圖的同一個比例尺下,後者會小到看不見。
+  </text>
+</svg>
