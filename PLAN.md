@@ -1,0 +1,44 @@
+# PLAN — 分輪進度
+
+一輪推進一個主題,每輪結束 commit + push。完成的項目留在表上,不刪除,方便回頭追。
+
+## 進度
+
+| 輪次 | 主題 | 產出 | 狀態 |
+|---|---|---|---|
+| R1 | Repo 骨架 | `README.md` / `CLAUDE.md` / `CONTEXT.md` / `PLAN.md` / `LICENSE` | ✅ |
+| R2 | 系統全景 | `docs/00-system-overview/` | ✅ |
+| R3 | 開源生態與選型 | `docs/05-open-source-landscape/` | ✅ |
+| R4 | 飛控軟體 | `docs/10-flight-controller/` | ✅ |
+| R5 | 通訊協定 | `docs/20-protocols/` | ✅ |
+| R6 | 機載運算 | `docs/30-companion-compute/` | ✅ |
+| R7 | 任務控制三層 | `docs/40-mission-control/` | ✅ |
+| R8 | 地面站與雲端 | `docs/50-gcs-and-cloud/` | ✅ |
+| R9 | 模擬與測試 | `docs/60-simulation-and-testing/` | ✅ |
+| R10 | AI 協作開發 | `docs/70-ai-assisted-development/` | ✅ |
+| R11 | 手繪 SVG | `img/` | ✅ |
+| R12 | 參考實作骨架 | `reference-impl/` | ✅ |
+
+## 每輪收尾流程
+
+1. 寫完內容,自檢 `CLAUDE.md` 的每篇驗收標準
+2. 新術語補進 `CONTEXT.md`
+3. 更新 `README.md` 索引與本檔進度
+4. `git add -A` → 繁中 commit → push
+
+## 待補與待查證
+
+| 項目 | 狀態 |
+|---|---|
+| Pegasus Simulator 是否支援 Isaac Sim 6.0 | 待查證 |
+| PX4 v1.17 / v1.18 的正式釋出日期 | 待查證(版本號已確認,日期未從官方頁面取得) |
+| Isaac Sim 6.0 GA 的正式釋出日期 | 待查證 |
+| 台灣民航局遙控無人機法規的現行條文與 Remote ID 要求 | 待查證,目前文件只寫國際通則 |
+| reference-impl 在實體 Pixhawk 上的 HITL 驗證 | 未做,目前只驗過 SITL |
+
+## 後續可擴充
+
+- 各章的實測數據:鏈路頻寬預算、Offboard 延遲、EKF innovation 正常區間
+- 多機模擬與群飛的 CI 範例
+- 影像管線(GStreamer / WebRTC)的完整 lab
+- 從 ULog 到自動化異常判讀的分析腳本
