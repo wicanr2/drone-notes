@@ -37,19 +37,30 @@ URDF 與 MJCF 匯入器的原始碼 NVIDIA 已經開源,可以當成寫其他格
 | 來源 | 格式 | 授權 | 含動力學 | 備註 |
 |---|---|---|---|---|
 | Isaac Sim 內建資產 | USD | NVIDIA 資產條款 | ✅ | `Robots/Crazyflie/cf2x.usd` 與 `Robots/Quadcopter/quadcopter.usd`;Isaac Lab 有對應的懸停訓練範例 |
-| [Pegasus Simulator](https://github.com/PegasusSimulator/PegasusSimulator) | USD | BSD-3-Clause | ✅ | 多旋翼 + PX4 介接,Isaac Sim 上最直接的起點 |
+| [Pegasus Simulator](https://github.com/PegasusSimulator/PegasusSimulator) | USD | BSD-3-Clause | ✅ | 多旋翼 + PX4 介接,**但只到 Isaac Sim 5.1**,見下方版本說明 |
 | [Aerial Gym Simulator](https://github.com/ntnu-arl/aerial_gym_simulator) | 自有格式 | BSD-3-Clause | ✅ | 含幾何控制器與 GPU 光達/相機;目前建在 Isaac Gym 上 |
 | [gym-pybullet-drones](https://github.com/utiasDSL/gym-pybullet-drones) | **URDF** | MIT | ✅ | URDF 裡直接寫了慣量與推力係數,是**最好抄的參數來源** |
 | [PX4-gazebo-models](https://github.com/PX4/PX4-gazebo-models) | SDF | BSD-3-Clause | ✅ | PX4 官方模擬機型(x500 等),Gazebo 格式,要轉 |
 | [RotorS](https://github.com/ethz-asl/rotors_simulator) | URDF / xacro | **無授權檔** | ✅ | Hummingbird / Pelican / Firefly;2024-07 之後沒動、ROS 1,見下方風險 |
 
+### 先確認 Isaac Sim 版本,再決定用哪條路
+
+Pegasus 是 Isaac Sim 上接 PX4 最直接的橋,但**它目前跟不上 Isaac Sim 的版本**。最新的 v5.1.0(2025-10-26)對應 Isaac Sim 5.1;Isaac Sim 6.0 已於 2026-06-04 GA,而 Pegasus 在 6.0 上會載入失敗——擴充相依於 6.0 已經移除的 `omni.isaac.core`([issue #131](https://github.com/PegasusSimulator/PegasusSimulator/issues/131),2026-03-13 開啟,查證日 2026-08-05 仍未關閉)。
+
+這不是死專案,repo 最後 push 是 2026-07-24。但在支援補上之前,選擇只有兩個:**裝 Isaac Sim 5.1 用 Pegasus,或裝 6.0 但自己接 PX4。** 先想清楚要哪一個,再開始裝——裝錯版本重來的成本比查一次高得多。
+
+Pegasus 的維護節奏本來就慢一拍。作者明確寫過維護預期跟他的博士班時程綁在一起,[開源生態那章](../05-open-source-landscape/01-landscape.md)提過這一點。歷史上每個版本都明示「與舊版 Isaac Sim 不相容」,所以版本綁定是常態,不是這一次的意外。
+
 ### 最實際的做法
 
 如果目標是「在 Isaac Sim 裡飛一台接 PX4 的多旋翼」,順序是:
 
-1. **先用 Pegasus Simulator 附的模型**。它已經處理好 USD、動力學與 PX4 介接,不必自己組。
-2. **需要不同機型時,從 gym-pybullet-drones 的 URDF 抄參數。** 它的 URDF 把質量、慣量、推力係數、力矩係數都寫成明碼,是很好的對照組——即使你最後不用 PyBullet。
-3. **視覺要好看再換網格。** 這一步放最後,因為它對訓練結果的影響最小(除非你在訓視覺)。
+1. **先定版本**:要用 Pegasus 就裝 Isaac Sim 5.1。
+2. **用 Pegasus 附的模型起步**。它已經處理好 USD、動力學與 PX4 介接,不必自己組。
+3. **需要不同機型時,從 gym-pybullet-drones 的 URDF 抄參數。** 它的 URDF 把質量、慣量、推力係數、力矩係數都寫成明碼,是很好的對照組——即使你最後不用 PyBullet。
+4. **視覺要好看再換網格。** 這一步放最後,因為它對訓練結果的影響最小(除非你在訓視覺)。
+
+如果非用 Isaac Sim 6.0 不可(例如要用它的 Newton 整合),就要有自己接 PX4 的心理準備,或改用 [Gazebo 走驗證路線](../60-simulation-and-testing/02-gazebo-and-isaac-sim.md)——PX4 官方主線支援的是 Gazebo,不是 Isaac Sim。
 
 ---
 
@@ -117,7 +128,7 @@ CAD 唯一不可替代的貢獻是**幾何關係**:相機裝在哪、光達的�
 
 1. CAD 只有幾何,沒有質量、慣量、關節與致動器;匯進來會得到一個像磚頭的模型。
 2. 走 URDF 或 MJCF 進 Isaac Sim,物理資訊帶得進來;走 CAD 或 mesh 進來的要自己補。
-3. 無人機模型的實際起點:Pegasus Simulator 的 USD(BSD-3),參數對照抄 gym-pybullet-drones 的 URDF(MIT)。
+3. 無人機模型的實際起點:Pegasus Simulator 的 USD(BSD-3),參數對照抄 gym-pybullet-drones 的 URDF(MIT)。但 Pegasus 只到 Isaac Sim 5.1,裝之前先定版本。
 4. 世界模型:室內用 Isaac Sim 內建場景,戶外用 Cesium,但要知道 Google 3D Tiles 在無人機高度細節不足。
 5. 三個授權坑:沒有授權檔不等於可自由使用、NVIDIA 資產條款不等於 Apache-2.0、串流內容條款不等於擴充條款。
 6. 素材檔案不進這個 repo,授權太雜;要收就另開一個素材 repo,把授權邊界切乾淨。

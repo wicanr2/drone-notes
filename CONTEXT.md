@@ -8,12 +8,14 @@
 
 寫文件時引用這張表,不要在內文另寫一套版本號。版本會過期,更新時連查證日期一起改。
 
+**版本號與釋出日期一律以 `gh api repos/<owner>/<repo>/releases` 取得**,不抄部落格或發布公告的日期——兩者常差幾天,而且公告日期不等於 tag 日期。逐項出處見本節末。
+
 ### 飛控韌體
 
 | 專案 | 狀態 | 備註 |
 |---|---|---|
-| PX4 | v1.17 stable、v1.18 beta、main 朝 v1.19 | v1.16 起模擬器改用 Gazebo Harmonic、內建 Zenoh middleware、支援 log 加密;v1.17 新增 Altitude Cruise 模式、Zenoh 向 `rmw_zenoh` 相容性成熟 |
-| ArduPilot | 4.7.0 stable(2026-07-21) | Copter / Plane / Rover / Sub / Tracker / Periph 同版號釋出 |
+| PX4 | v1.17.0 stable(2026-05-13)、v1.18.0-beta1(2026-07-08)、main 朝 v1.19 | v1.16 起模擬器改用 Gazebo Harmonic、內建 Zenoh middleware、支援 log 加密;v1.17 新增 Altitude Cruise 模式、Zenoh 向 `rmw_zenoh` 相容性成熟 |
+| ArduPilot | 4.7.0 stable(2026-07-27) | Copter / Plane / Rover / Sub / Tracker / Periph 同版號釋出 |
 
 ### 中介層與 SDK
 
@@ -22,8 +24,8 @@
 | uXRCE-DDS | PX4 預設,多數 build 內建 | Client 在 PX4、Agent 在伴隨電腦,兩端橋接 uORB ↔ DDS |
 | PX4 Zenoh middleware | v1.16 進 in-tree,v1.17 成熟 | CDRv1 序列化對齊 ROS 2、transport lease 60 秒、liveliness 為實驗性;需手動啟用 |
 | `rmw_zenoh` | ROS 2 Tier 1(自 Kilted 起) | Zenoh 作為 ROS 2 middleware 的官方實作 |
-| MAVSDK (C++) | v3.17.1(2026-04) | C++20;內含 gRPC server,其他語言當 client |
-| MAVSDK-Python | 3.15.3(2026-02) | 走 gRPC 連 C++ server |
+| MAVSDK (C++) | v3.17.2(2026-07-17) | C++20;內含 gRPC server,其他語言當 client |
+| MAVSDK-Python | 3.17.2(2026-07-22) | 走 gRPC 連 C++ server。**沒有官方 API 參考**,介面全貌見 [20-03](docs/20-protocols/03-mavsdk-api-surface.md)(從套件 introspect 產生) |
 | px4-ros2-interface-lib | Auterion 維護,活躍 | C++ 函式庫,把 ROS 2 寫的 flight mode 動態註冊進 PX4,GCS 看起來像原生模式,失敗可 fallback 回原模式;版本相容性檢查在註冊時做 |
 | pymavlink | MAVLink 官方 Python 綁定 | 低階、無依賴,適合學協定與寫工具 |
 
@@ -43,15 +45,15 @@
 | Gazebo Harmonic | LTS,支援到 2028-09 | PX4 官方對齊的版本 |
 | Gazebo Ionic | 短期支援,EOL 2026-12 | Harmonic 到 Jetty 之間的過渡版 |
 | Gazebo Jetty | LTS(2025-09 起,約 5 年) | 最新 LTS |
-| Isaac Sim | 6.0 GA(6.0.1 為最新修訂) | 前一版為 5.1 |
-| Pegasus Simulator | v5.1.0 對應 Isaac Sim 5.1 | 支援 PX4,ArduPilot 為實驗性。**是否支援 Isaac Sim 6.0:待查證** |
+| Isaac Sim | 6.0.0 GA(2026-06-04),6.0.1 為最新修訂(2026-06-22) | 前一版為 5.1.0(2025-10-21) |
+| Pegasus Simulator | v5.1.0(2025-10-26)對應 Isaac Sim 5.1 | 支援 PX4,ArduPilot 為實驗性。**尚未支援 Isaac Sim 6.0**:擴充相依已移除的 `omni.isaac.core`,在 6.0 上載入失敗(issue #131,2026-03-13 開啟,查證日仍未關閉)。repo 本身仍活躍(最後 push 2026-07-24) |
 
 ### Physical AI 訓練堆疊
 
 | 專案 | 狀態 | 備註 |
 |---|---|---|
 | Newton | 1.0(2026-03 GTC 發布),Apache-2.0 | NVIDIA + Google DeepMind + Disney Research,Linux Foundation 管理;建在 Warp + OpenUSD,MuJoCo Warp 為主要 backend |
-| Isaac Lab | 2.3.2(2026-01-30)加入無人機支援;3.0 Beta 整合 Newton(develop 分支) | BSD-3-Clause |
+| Isaac Lab | 2.3.2(2026-02-02)為最新穩定版;3.0 仍在 beta(v3.0.0-beta2.patch1,2026-07-02)整合 Newton | BSD-3-Clause |
 | Aerial Gym Simulator | 活躍,BSD-3-Clause | 仍建在 Isaac Gym Preview;Isaac Lab / Isaac Sim 支援標示為開發中 |
 | AirGym | 活躍,BSD-3-Clause | 同樣建在 Isaac Gym |
 | gym-pybullet-drones | 活躍,MIT | CPU 可跑 |
@@ -63,8 +65,17 @@
 
 | 專案 | 狀態 |
 |---|---|
-| QGroundControl | v5.0 stable,v5.1 release candidate |
+| QGroundControl | v5.1.0 stable(2026-07-30);前一穩定版 v5.0.8(2025-10-09) |
 | Mission Planner | ArduPilot 生態主力,Windows 為主 |
+
+### 出處
+
+| 項目 | 出處 |
+|---|---|
+| PX4、ArduPilot、MAVSDK、MAVSDK-Python、Isaac Sim、Isaac Lab、Pegasus、QGroundControl 的版本與日期 | 各 repo 的 `gh api repos/<owner>/<repo>/releases`,查證日 2026-08-05 |
+| MAVSDK-Python 的最新版本 | <https://pypi.org/pypi/mavsdk/json> |
+| Pegasus 對 Isaac Sim 6.0 的支援狀態 | <https://github.com/PegasusSimulator/PegasusSimulator/issues/131> 與該 repo README 的版本對應說明 |
+| Pegasus 各版本對應的 Isaac Sim 版本 | <https://github.com/PegasusSimulator/PegasusSimulator> README 的更新紀錄 |
 
 ---
 

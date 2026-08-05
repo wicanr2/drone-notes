@@ -29,6 +29,8 @@ class MavsdkVehicle:
     connect_timeout_s: float = 60.0
     has_camera: bool = False
     has_gimbal: bool = False
+    discover_timeout_s: float = 10.0
+    photo_timeout_s: float = 20.0
 
     _drone: object | None = None
     _state: VehicleState = field(default_factory=VehicleState)
@@ -38,6 +40,10 @@ class MavsdkVehicle:
     _last_mode: str = ""
     # 我們自己請求過的模式,用來排除「這個模式變更是我造成的」。
     _requested_modes: set[str] = field(default_factory=set)
+    # 雲台與相機的識別碼查一次就好,但要等連上線才查得到,所以不在建構時做。
+    _gimbal_id_cache: int | None = None
+    _camera_id_cache: int | None = None
+    _gimbal_controlled: bool = False
 
     async def connect(self) -> None:
         from mavsdk import System  # 延遲匯入,沒裝 mavsdk 也能跑假飛控
@@ -64,6 +70,14 @@ class MavsdkVehicle:
         await self._wait_for_position_fix()
 
     async def close(self) -> None:
+        # 拿了雲台控制權就要還——不還的話下一個接手的元件(例如地面站的
+        # 手動雲台操作)會被擋在外面,而且沒有明顯的錯誤訊息。
+        if self._gimbal_controlled and self._gimbal_id_cache is not None:
+            try:
+                await self._drone.gimbal.release_control(self._gimbal_id_cache)
+            except Exception:  # noqa: BLE001 - 收尾失敗不該蓋掉原本的關閉流程
+                pass
+            self._gimbal_controlled = False
         for t in self._tasks:
             t.cancel()
         self._tasks.clear()
@@ -112,16 +126,104 @@ class MavsdkVehicle:
             raise VehicleError(f"rtl rejected: {err}") from err
 
     async def set_gimbal(self, pitch_deg: float, yaw_deg: float) -> None:
+        """指向雲台。簽章對照 MAVSDK 3.17.2,見 docs/20-protocols/03。
+
+        3.x 的雲台介面跟舊版差兩件事:每個呼叫都要帶 gimbal_id(一台機可以
+        掛多個雲台),而且下角度之前要先 take_control。少了 take_control,
+        指令會被接受但雲台不動——這種「成功但沒作用」最難查。
+        """
         if not self.has_gimbal:
             raise VehicleError("這台機沒有設定雲台(has_gimbal=False)")
-        # 雲台的 MAVSDK 介面在不同版本間有變動,接實機前要對照當前版本的
-        # gimbal plugin 簽章。這裡不猜,交給使用者依實機設定補上。
-        raise VehicleError("雲台控制需依實際 MAVSDK 版本補上(待實作)")
+
+        from mavsdk.gimbal import ControlMode, GimbalMode, SendMode
+
+        gid = await self._gimbal_id()
+        try:
+            if not self._gimbal_controlled:
+                await self._drone.gimbal.take_control(gid, ControlMode.PRIMARY)
+                self._gimbal_controlled = True
+            await self._drone.gimbal.set_angles(
+                gid,
+                0.0,
+                float(pitch_deg),
+                float(yaw_deg),
+                # YAW_FOLLOW:yaw 相對機頭。要相對正北請改 YAW_LOCK——
+                # 這兩者搞混會讓繞行拍照的每一張都偏一個航向角。
+                GimbalMode.YAW_FOLLOW,
+                SendMode.ONCE,
+            )
+        except Exception as err:  # noqa: BLE001
+            raise VehicleError(f"gimbal rejected: {err}") from err
 
     async def capture_photo(self) -> str:
+        """拍一張並等到飛控回報存檔成功,回傳檔案位址。
+
+        介面契約要求回傳的是「已確認存檔」而不是「已送出指令」,所以這裡
+        必須等 capture_info。**先訂閱再拍**:反過來的話,回報可能在訂閱
+        建立之前就送出,結果等到逾時。
+
+        注意這樣仍不是完全沒有競態——訂閱要一個 gRPC 來回才真的生效。
+        沒有相機硬體可測,所以這段只有介面層的測試,見 README 的驗證狀態。
+        """
         if not self.has_camera:
             raise VehicleError("這台機沒有設定相機(has_camera=False)")
-        raise VehicleError("相機控制需依實際 MAVSDK 版本補上(待實作)")
+
+        from mavsdk.camera import Mode
+
+        cid = await self._camera_id()
+        waiter = asyncio.create_task(
+            self._first(self._drone.camera.capture_info(), self.photo_timeout_s, "拍照結果")
+        )
+        try:
+            await self._drone.camera.set_mode(cid, Mode.PHOTO)
+            await self._drone.camera.take_photo(cid)
+        except Exception as err:  # noqa: BLE001
+            waiter.cancel()
+            raise VehicleError(f"take_photo rejected: {err}") from err
+
+        info = await waiter
+        if not info.is_success:
+            raise VehicleError("相機回報拍照失敗")
+        return str(info.file_url or f"IMG_{info.index}")
+
+    # --- MAVSDK 的查詢都是串流,要包一層 ------------------------------------
+
+    async def _first(self, stream, timeout_s: float, what: str):
+        """從訂閱式串流取第一筆。
+
+        MAVSDK 幾乎所有查詢都是 async generator,沒有「查一次」的形式。
+        直接 async for 在對方不回話時會永遠掛著,所以一律加逾時。
+        """
+
+        async def _take():
+            async for item in stream:
+                return item
+            raise VehicleError(f"{what}:串流結束但沒有資料")
+
+        try:
+            return await asyncio.wait_for(_take(), timeout_s)
+        except asyncio.TimeoutError as err:
+            raise VehicleError(f"{what}:等 {timeout_s:.0f} 秒沒有回應") from err
+
+    async def _gimbal_id(self) -> int:
+        if self._gimbal_id_cache is None:
+            gl = await self._first(
+                self._drone.gimbal.gimbal_list(), self.discover_timeout_s, "雲台清單"
+            )
+            if not gl.gimbals:
+                raise VehicleError("飛控回報沒有任何雲台")
+            self._gimbal_id_cache = gl.gimbals[0].gimbal_id
+        return self._gimbal_id_cache
+
+    async def _camera_id(self) -> int:
+        if self._camera_id_cache is None:
+            cl = await self._first(
+                self._drone.camera.camera_list(), self.discover_timeout_s, "相機清單"
+            )
+            if not cl.cameras:
+                raise VehicleError("飛控回報沒有任何相機")
+            self._camera_id_cache = cl.cameras[0].component_id
+        return self._camera_id_cache
 
     def poll_interrupt(self) -> Interrupt | None:
         return self._pending.pop(0) if self._pending else None

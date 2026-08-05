@@ -86,11 +86,12 @@ docker run --rm -v "$PWD":/w -w /w ghcr.io/astral-sh/uv:python3.12-bookworm-slim
 | 項目 | 狀態 |
 |---|---|
 | 單元測試(執行器狀態機、恢復、冪等)20 項 | **通過** |
+| 單元測試(雲台與相機的呼叫序列)7 項 | **通過**——對照 MAVSDK 3.17.2 簽章的 stub,驗的是介面不是飛行行為 |
 | 情境測試 × 2,假飛控後端 | **通過** |
 | 情境測試 01,真 PX4 SITL v1.17 + Gazebo(無頭)+ MAVSDK | **通過**(起飛 → 三個航點 → 降落) |
 | 情境的 `metrics` 斷言 | **未實作**——需要解析 ULog |
 | 情境的 `inject` 故障注入 | **未實作**——需要注入介面 |
-| 雲台與相機(`orbit_photo` 動作) | 只在假飛控後端可用;預設的 `gz_x500` 模型沒有相機,MAVSDK 的雲台/相機介面在不同版本間有變動,這裡不猜 |
+| 雲台與相機接真硬體 | **未驗證**——已依 MAVSDK 3.17.2 實作(`take_control` → `set_angles`、`take_photo` → 等 `capture_info`),但沒有雲台與相機可測,預設的 `gz_x500` 模型也沒有相機 |
 | HITL / 實機 | **未驗證** |
 
 文件裡[情境檔的完整格式](../docs/60-simulation-and-testing/03-ci-and-regression.md)包含 `metrics` 與 `inject`,那是目標形狀;這個骨架只實作了 events 與 final_state 的斷言,遇到未實作的欄位會印出「略過」而不是假裝驗過。

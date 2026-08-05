@@ -24,6 +24,7 @@
 | R16 | 策略訓練骨架 | `reference-impl/policy-lab/`,9 項測試通過 | ✅ |
 | R17 | README 改版 | 系統架構圖與爆炸圖(兼作章節導覽) | ✅ |
 | R18 | 模擬素材 | `docs/65-physical-ai-sim/03-assets-and-worlds.md`,授權以 `gh api` 逐一查證 | ✅ |
+| R19 | MAVSDK 介面與待查證清項 | `docs/20-protocols/03-mavsdk-api-surface.md`(產生器 + 產物)、雲台與相機實作 + 7 項測試、版本表與台灣法規查證 | ✅ |
 
 ## 每輪收尾流程
 
@@ -36,15 +37,13 @@
 
 | 項目 | 狀態 |
 |---|---|
-| Pegasus Simulator 是否支援 Isaac Sim 6.0 | 待查證 |
-| PX4 v1.17 / v1.18 的正式釋出日期 | 待查證(版本號已確認,日期未從官方頁面取得) |
-| Isaac Sim 6.0 GA 的正式釋出日期 | 待查證 |
-| 台灣民航局遙控無人機法規的現行條文與 Remote ID 要求 | 待查證,目前文件只寫國際通則 |
 | reference-impl 在實體 Pixhawk 上的 HITL 驗證 | 未做,目前只驗過 SITL |
 | 情境檔的 `metrics` 斷言(需解析 ULog) | 未實作,格式已在 docs/60 定義 |
 | 情境檔的 `inject` 故障注入 | 未實作,假飛控後端已有排程中斷的機制可接 |
-| MAVSDK 的雲台與相機介面 | 未接,各版本簽章有變動,要對照實際版本才寫 |
-| Isaac Lab 3.0 與 Newton 的整合進度 | Beta 階段,穩定後要回頭更新 65 章 |
+| 雲台與相機接真硬體 | 已依 MAVSDK 3.17.2 實作並有介面層測試,但無硬體可驗 |
+| 民航局的射頻識別公告(門檻重量與技術規範) | 尚未發布,發布後要回頭補 docs/50 |
+| Isaac Lab 3.0 與 Newton 的整合進度 | 仍在 beta(v3.0.0-beta2.patch1,2026-07-02),穩定後要回頭更新 65 章 |
+| Pegasus 對 Isaac Sim 6.0 的支援 | 尚未支援(issue #131 未關閉),支援後要改 65-03 的版本建議 |
 | Aerial Gym 對 Isaac Lab / Isaac Sim 的支援 | 官方標示開發中,完成後選型建議要改 |
 | `mc_nn_control` 各參數的精確語意與實際飛行驗證 | 只確認模組與參數存在,未實跑 |
 | RotorS 與 AWS RoboMaker worlds 的實際授權 | repo 根目錄查無授權檔(2026-08-05);未向作者確認,文件已標為風險 |

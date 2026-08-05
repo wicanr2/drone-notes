@@ -77,7 +77,7 @@ Isaac Sim 本身不知道 PX4 的存在,需要橋接。開源的方案是 [Pegas
 
 要注意的兩件事:
 
-**版本綁定很緊。** Pegasus 的版本對應特定的 Isaac Sim 版本,而 Isaac Sim 本身改版頻繁。開工前先確認你要用的 Isaac Sim 版本有沒有對應的 Pegasus 版本(目前的對應關係見 [CONTEXT.md](../../CONTEXT.md),其中對最新 Isaac Sim 的支援狀態標為待查證)。
+**版本綁定很緊,而且目前落後一個大版本。** Pegasus 每個版本都明示與舊版 Isaac Sim 不相容,最新的 v5.1.0 對應 Isaac Sim 5.1。Isaac Sim 6.0 已於 2026-06-04 GA,但 Pegasus 在上面載入失敗——相依於 6.0 移除的 `omni.isaac.core`([issue #131](https://github.com/PegasusSimulator/PegasusSimulator/issues/131),查證日 2026-08-05 仍未關閉)。**要用 Pegasus 就得停在 Isaac Sim 5.1。** 版本對應見 [CONTEXT.md](../../CONTEXT.md)。
 
 **授權不是單純的開源。** Isaac Sim 的原始碼是 Apache-2.0,但它依賴的 Omniverse Kit SDK 與 3D 資產另有 NVIDIA 授權,而且需要 NVIDIA GPU。[生態地圖那章](../05-open-source-landscape/01-landscape.md)有詳細說明。
 

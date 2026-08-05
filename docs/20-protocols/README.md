@@ -6,6 +6,7 @@ MAVLink 的每個設計選擇,放回「57600 bps、會掉包、沒有重傳」�
 |---|---|---|
 | [01](01-mavlink-first-principles.md) | MAVLink 為什麼長這樣 | 封包每個欄位在解決什麼、CRC 為什麼混入訊息定義指紋、為什麼沒有連線、三類互動的三種可靠性策略、`COMMAND_INT` 存在的理由 |
 | [02](02-routing-and-bandwidth.md) | 路由、頻寬預算與安全 | 為什麼要 MAVLink 路由器、逐則訊息算出的頻寬預算表、多鏈路重複問題、威脅模型與對策 |
+| [03](03-mavsdk-api-surface.md) | MAVSDK-Python 介面全貌 | 38 個 plugin、359 個方法的完整簽章與型別;哪些是一次呼叫、哪些是訂閱式串流;控制端與被控端的 plugin 怎麼分。從套件 introspect 產生,不是手抄 |
 
 讀完應該能回答:
 
@@ -13,3 +14,4 @@ MAVLink 的每個設計選擇,放回「57600 bps、會掉包、沒有重傳」�
 - 為什麼牽涉座標的命令一定要用整數版本?
 - 把姿態訊息從 10 Hz 調到 50 Hz 會發生什麼事,為什麼症狀不像頻寬問題?
 - 開了 MAVLink 簽章之後,竊聽者還看得到內容嗎?
+- 為什麼 `await drone.gimbal.gimbal_list()` 會卡住,而 `async for` 就正常?

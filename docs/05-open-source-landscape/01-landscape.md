@@ -108,7 +108,7 @@ ADOS Mission Control 代表另一條路線:web 版 GCS,含多機與 MQTT 遙測�
 
 ### 模擬
 
-Gazebo 與 Isaac Sim 不是競爭關係,是不同工具。[60 模擬與測試](../60-simulation-and-testing/)會展開,這裡先給結論:**要跑 CI、要驗證控制與任務邏輯,用 Gazebo;要驗證視覺演算法、要生訓練資料、要光學保真度,用 Isaac Sim。** Pegasus Simulator 是把 PX4 接到 Isaac Sim 的橋,目前對應 Isaac Sim 5.1,對 6.0 的支援待查證。
+Gazebo 與 Isaac Sim 不是競爭關係,是不同工具。[60 模擬與測試](../60-simulation-and-testing/)會展開,這裡先給結論:**要跑 CI、要驗證控制與任務邏輯,用 Gazebo;要驗證視覺演算法、要生訓練資料、要光學保真度,用 Isaac Sim。** Pegasus Simulator 是把 PX4 接到 Isaac Sim 的橋,目前對應 Isaac Sim 5.1,**在已經 GA 的 Isaac Sim 6.0 上載入失敗**([issue #131](https://github.com/PegasusSimulator/PegasusSimulator/issues/131),查證日 2026-08-05 未關閉)。
 
 已經退場的要知道:jMAVSim 已被 PX4 淘汰,微軟的 AirSim 已封存(社群 fork Cosys-AirSim 仍在動)。看到教學文章用這兩個,先確認發文日期。
 
